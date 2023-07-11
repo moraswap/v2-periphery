@@ -22,164 +22,122 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface MoraMakerV2Interface extends ethers.utils.Interface {
   functions: {
-    "boughtMora()": FunctionFragment;
-    "boughtUsdc()": FunctionFragment;
-    "convert(address,address)": FunctionFragment;
-    "convertMultiple(address[],address[])": FunctionFragment;
-    "convertMultipleSingleToken(address[])": FunctionFragment;
-    "convertSingleToken(address)": FunctionFragment;
+    "addAuth(address)": FunctionFragment;
+    "bar()": FunctionFragment;
+    "bridgeFor(address)": FunctionFragment;
+    "convert(address,address,uint256)": FunctionFragment;
+    "convertMultiple(address[],address[],uint256)": FunctionFragment;
+    "devAddr()": FunctionFragment;
+    "devCut()": FunctionFragment;
     "factory()": FunctionFragment;
-    "moraBridgeFor(address)": FunctionFragment;
-    "moraBuybackPercent()": FunctionFragment;
+    "getAuth(uint256)": FunctionFragment;
+    "lenAuth()": FunctionFragment;
     "owner()": FunctionFragment;
+    "removeAuth(address)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "setMoraBridge(address,address)": FunctionFragment;
-    "setMoraBuybackPercent(uint256)": FunctionFragment;
-    "setTreasury(address)": FunctionFragment;
-    "setUsdcBridge(address,address)": FunctionFragment;
+    "setBridge(address,address)": FunctionFragment;
+    "setDevAddr(address)": FunctionFragment;
+    "setDevCut(uint256)": FunctionFragment;
+    "setTokenToAddress(address)": FunctionFragment;
+    "tokenTo()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "treasury()": FunctionFragment;
-    "usdcBridgeFor(address)": FunctionFragment;
-    "xmora()": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "boughtMora",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "boughtUsdc",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "addAuth", values: [string]): string;
+  encodeFunctionData(functionFragment: "bar", values?: undefined): string;
+  encodeFunctionData(functionFragment: "bridgeFor", values: [string]): string;
   encodeFunctionData(
     functionFragment: "convert",
-    values: [string, string]
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "convertMultiple",
-    values: [string[], string[]]
+    values: [string[], string[], BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "convertMultipleSingleToken",
-    values: [string[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "convertSingleToken",
-    values: [string]
-  ): string;
+  encodeFunctionData(functionFragment: "devAddr", values?: undefined): string;
+  encodeFunctionData(functionFragment: "devCut", values?: undefined): string;
   encodeFunctionData(functionFragment: "factory", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "moraBridgeFor",
-    values: [string]
+    functionFragment: "getAuth",
+    values: [BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "moraBuybackPercent",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "lenAuth", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "removeAuth", values: [string]): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "setMoraBridge",
+    functionFragment: "setBridge",
     values: [string, string]
   ): string;
+  encodeFunctionData(functionFragment: "setDevAddr", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "setMoraBuybackPercent",
+    functionFragment: "setDevCut",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "setTreasury", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "setUsdcBridge",
-    values: [string, string]
+    functionFragment: "setTokenToAddress",
+    values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "tokenTo", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
-  encodeFunctionData(functionFragment: "treasury", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "usdcBridgeFor",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "xmora", values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "boughtMora", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "boughtUsdc", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "addAuth", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "bar", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "bridgeFor", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "convert", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "convertMultiple",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "convertMultipleSingleToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "convertSingleToken",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "devAddr", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "devCut", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "moraBridgeFor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "moraBuybackPercent",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "getAuth", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lenAuth", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "removeAuth", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setBridge", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setDevAddr", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setDevCut", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setMoraBridge",
+    functionFragment: "setTokenToAddress",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMoraBuybackPercent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setTreasury",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setUsdcBridge",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "tokenTo", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "treasury", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "usdcBridgeFor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "xmora", data: BytesLike): Result;
 
   events: {
-    "LogConvertSingleToken(address,address,uint256,uint256,uint256)": EventFragment;
-    "LogConvertToMORA(address,address,address,uint256,uint256,uint256)": EventFragment;
-    "LogConvertToUSDC(address,address,address,uint256,uint256,uint256)": EventFragment;
-    "LogMoraBridgeSet(address,address)": EventFragment;
-    "LogMoraBuybackPercentSet(uint256)": EventFragment;
-    "LogTreasurySet(address)": EventFragment;
-    "LogUsdcBridgeSet(address,address)": EventFragment;
+    "AddAuthorizedAddress(address)": EventFragment;
+    "LogBridgeSet(address,address,address)": EventFragment;
+    "LogConvert(address,address,address,uint256,uint256,uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
+    "RemoveAuthorizedAddress(address)": EventFragment;
+    "SetDevAddr(address)": EventFragment;
+    "SetDevCut(uint256)": EventFragment;
+    "SetTokenTo(address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "LogConvertSingleToken"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogConvertToMORA"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogConvertToUSDC"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogMoraBridgeSet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogMoraBuybackPercentSet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogTreasurySet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LogUsdcBridgeSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "AddAuthorizedAddress"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LogBridgeSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LogConvert"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RemoveAuthorizedAddress"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetDevAddr"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetDevCut"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetTokenTo"): EventFragment;
 }
 
 export class MoraMakerV2 extends Contract {
@@ -196,127 +154,141 @@ export class MoraMakerV2 extends Contract {
   interface: MoraMakerV2Interface;
 
   functions: {
-    boughtMora(overrides?: CallOverrides): Promise<[BigNumber]>;
+    addAuth(_auth: string, overrides?: Overrides): Promise<ContractTransaction>;
 
-    "boughtMora()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "addAuth(address)"(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
 
-    boughtUsdc(overrides?: CallOverrides): Promise<[BigNumber]>;
+    bar(overrides?: CallOverrides): Promise<[string]>;
 
-    "boughtUsdc()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "bar()"(overrides?: CallOverrides): Promise<[string]>;
+
+    bridgeFor(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<[string] & { bridge: string }>;
+
+    "bridgeFor(address)"(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<[string] & { bridge: string }>;
 
     convert(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "convert(address,address)"(
+    "convert(address,address,uint256)"(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
     convertMultiple(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "convertMultiple(address[],address[])"(
+    "convertMultiple(address[],address[],uint256)"(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    convertMultipleSingleToken(
-      token: string[],
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
+    devAddr(overrides?: CallOverrides): Promise<[string]>;
 
-    "convertMultipleSingleToken(address[])"(
-      token: string[],
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
+    "devAddr()"(overrides?: CallOverrides): Promise<[string]>;
 
-    convertSingleToken(
-      token: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
+    devCut(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "convertSingleToken(address)"(
-      token: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
+    "devCut()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     factory(overrides?: CallOverrides): Promise<[string]>;
 
     "factory()"(overrides?: CallOverrides): Promise<[string]>;
 
-    moraBridgeFor(
-      token: string,
+    getAuth(index: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    "getAuth(uint256)"(
+      index: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string] & { bridge: string }>;
+    ): Promise<[string]>;
 
-    "moraBridgeFor(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<[string] & { bridge: string }>;
+    lenAuth(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    moraBuybackPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "moraBuybackPercent()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "lenAuth()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     "owner()"(overrides?: CallOverrides): Promise<[string]>;
 
+    removeAuth(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "removeAuth(address)"(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
     "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
 
-    setMoraBridge(
+    setBridge(
       token: string,
       bridge: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "setMoraBridge(address,address)"(
+    "setBridge(address,address)"(
       token: string,
       bridge: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    setMoraBuybackPercent(
-      _moraBuybackPercent: BigNumberish,
+    setDevAddr(
+      _addr: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "setMoraBuybackPercent(uint256)"(
-      _moraBuybackPercent: BigNumberish,
+    "setDevAddr(address)"(
+      _addr: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    setTreasury(
-      _treasury: string,
+    setDevCut(
+      _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "setTreasury(address)"(
-      _treasury: string,
+    "setDevCut(uint256)"(
+      _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    setUsdcBridge(
-      token: string,
-      bridge: string,
+    setTokenToAddress(
+      _tokenTo: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "setUsdcBridge(address,address)"(
-      token: string,
-      bridge: string,
+    "setTokenToAddress(address)"(
+      _tokenTo: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    tokenTo(overrides?: CallOverrides): Promise<[string]>;
+
+    "tokenTo()"(overrides?: CallOverrides): Promise<[string]>;
 
     transferOwnership(
       newOwner: string,
@@ -327,144 +299,140 @@ export class MoraMakerV2 extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
-
-    treasury(overrides?: CallOverrides): Promise<[string]>;
-
-    "treasury()"(overrides?: CallOverrides): Promise<[string]>;
-
-    usdcBridgeFor(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<[string] & { bridge: string }>;
-
-    "usdcBridgeFor(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<[string] & { bridge: string }>;
-
-    xmora(overrides?: CallOverrides): Promise<[string]>;
-
-    "xmora()"(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  boughtMora(overrides?: CallOverrides): Promise<BigNumber>;
+  addAuth(_auth: string, overrides?: Overrides): Promise<ContractTransaction>;
 
-  "boughtMora()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "addAuth(address)"(
+    _auth: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
 
-  boughtUsdc(overrides?: CallOverrides): Promise<BigNumber>;
+  bar(overrides?: CallOverrides): Promise<string>;
 
-  "boughtUsdc()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "bar()"(overrides?: CallOverrides): Promise<string>;
+
+  bridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
+
+  "bridgeFor(address)"(
+    token: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   convert(
     token0: string,
     token1: string,
+    slippage: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "convert(address,address)"(
+  "convert(address,address,uint256)"(
     token0: string,
     token1: string,
+    slippage: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
   convertMultiple(
     token0: string[],
     token1: string[],
+    slippage: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "convertMultiple(address[],address[])"(
+  "convertMultiple(address[],address[],uint256)"(
     token0: string[],
     token1: string[],
+    slippage: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  convertMultipleSingleToken(
-    token: string[],
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
+  devAddr(overrides?: CallOverrides): Promise<string>;
 
-  "convertMultipleSingleToken(address[])"(
-    token: string[],
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
+  "devAddr()"(overrides?: CallOverrides): Promise<string>;
 
-  convertSingleToken(
-    token: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
+  devCut(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "convertSingleToken(address)"(
-    token: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
+  "devCut()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   factory(overrides?: CallOverrides): Promise<string>;
 
   "factory()"(overrides?: CallOverrides): Promise<string>;
 
-  moraBridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
+  getAuth(index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  "moraBridgeFor(address)"(
-    token: string,
+  "getAuth(uint256)"(
+    index: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  moraBuybackPercent(overrides?: CallOverrides): Promise<BigNumber>;
+  lenAuth(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "moraBuybackPercent()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "lenAuth()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   "owner()"(overrides?: CallOverrides): Promise<string>;
 
+  removeAuth(
+    _auth: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "removeAuth(address)"(
+    _auth: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
   "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
 
-  setMoraBridge(
+  setBridge(
     token: string,
     bridge: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "setMoraBridge(address,address)"(
+  "setBridge(address,address)"(
     token: string,
     bridge: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  setMoraBuybackPercent(
-    _moraBuybackPercent: BigNumberish,
+  setDevAddr(
+    _addr: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "setMoraBuybackPercent(uint256)"(
-    _moraBuybackPercent: BigNumberish,
+  "setDevAddr(address)"(
+    _addr: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  setTreasury(
-    _treasury: string,
+  setDevCut(
+    _amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "setTreasury(address)"(
-    _treasury: string,
+  "setDevCut(uint256)"(
+    _amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  setUsdcBridge(
-    token: string,
-    bridge: string,
+  setTokenToAddress(
+    _tokenTo: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "setUsdcBridge(address,address)"(
-    token: string,
-    bridge: string,
+  "setTokenToAddress(address)"(
+    _tokenTo: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
+
+  tokenTo(overrides?: CallOverrides): Promise<string>;
+
+  "tokenTo()"(overrides?: CallOverrides): Promise<string>;
 
   transferOwnership(
     newOwner: string,
@@ -476,134 +444,127 @@ export class MoraMakerV2 extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  treasury(overrides?: CallOverrides): Promise<string>;
-
-  "treasury()"(overrides?: CallOverrides): Promise<string>;
-
-  usdcBridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
-
-  "usdcBridgeFor(address)"(
-    token: string,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  xmora(overrides?: CallOverrides): Promise<string>;
-
-  "xmora()"(overrides?: CallOverrides): Promise<string>;
-
   callStatic: {
-    boughtMora(overrides?: CallOverrides): Promise<BigNumber>;
+    addAuth(_auth: string, overrides?: CallOverrides): Promise<void>;
 
-    "boughtMora()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "addAuth(address)"(_auth: string, overrides?: CallOverrides): Promise<void>;
 
-    boughtUsdc(overrides?: CallOverrides): Promise<BigNumber>;
+    bar(overrides?: CallOverrides): Promise<string>;
 
-    "boughtUsdc()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "bar()"(overrides?: CallOverrides): Promise<string>;
+
+    bridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
+
+    "bridgeFor(address)"(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     convert(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "convert(address,address)"(
+    "convert(address,address,uint256)"(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     convertMultiple(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "convertMultiple(address[],address[])"(
+    "convertMultiple(address[],address[],uint256)"(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    convertMultipleSingleToken(
-      token: string[],
-      overrides?: CallOverrides
-    ): Promise<void>;
+    devAddr(overrides?: CallOverrides): Promise<string>;
 
-    "convertMultipleSingleToken(address[])"(
-      token: string[],
-      overrides?: CallOverrides
-    ): Promise<void>;
+    "devAddr()"(overrides?: CallOverrides): Promise<string>;
 
-    convertSingleToken(token: string, overrides?: CallOverrides): Promise<void>;
+    devCut(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "convertSingleToken(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    "devCut()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     factory(overrides?: CallOverrides): Promise<string>;
 
     "factory()"(overrides?: CallOverrides): Promise<string>;
 
-    moraBridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
+    getAuth(index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    "moraBridgeFor(address)"(
-      token: string,
+    "getAuth(uint256)"(
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    moraBuybackPercent(overrides?: CallOverrides): Promise<BigNumber>;
+    lenAuth(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "moraBuybackPercent()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "lenAuth()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
     "owner()"(overrides?: CallOverrides): Promise<string>;
 
+    removeAuth(_auth: string, overrides?: CallOverrides): Promise<void>;
+
+    "removeAuth(address)"(
+      _auth: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
 
-    setMoraBridge(
+    setBridge(
       token: string,
       bridge: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setMoraBridge(address,address)"(
+    "setBridge(address,address)"(
       token: string,
       bridge: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setMoraBuybackPercent(
-      _moraBuybackPercent: BigNumberish,
+    setDevAddr(_addr: string, overrides?: CallOverrides): Promise<void>;
+
+    "setDevAddr(address)"(
+      _addr: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setMoraBuybackPercent(uint256)"(
-      _moraBuybackPercent: BigNumberish,
+    setDevCut(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "setDevCut(uint256)"(
+      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setTreasury(_treasury: string, overrides?: CallOverrides): Promise<void>;
-
-    "setTreasury(address)"(
-      _treasury: string,
+    setTokenToAddress(
+      _tokenTo: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setUsdcBridge(
-      token: string,
-      bridge: string,
+    "setTokenToAddress(address)"(
+      _tokenTo: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setUsdcBridge(address,address)"(
-      token: string,
-      bridge: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    tokenTo(overrides?: CallOverrides): Promise<string>;
+
+    "tokenTo()"(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(
       newOwner: string,
@@ -614,180 +575,164 @@ export class MoraMakerV2 extends Contract {
       newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    treasury(overrides?: CallOverrides): Promise<string>;
-
-    "treasury()"(overrides?: CallOverrides): Promise<string>;
-
-    usdcBridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
-
-    "usdcBridgeFor(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    xmora(overrides?: CallOverrides): Promise<string>;
-
-    "xmora()"(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
-    LogConvertSingleToken(
-      server: string | null,
+    AddAuthorizedAddress(_addr: string | null): EventFilter;
+
+    LogBridgeSet(
       token: string | null,
-      amount: null,
-      amountMORA: null,
-      amountUSDC: null
+      oldBridge: string | null,
+      bridge: string | null
     ): EventFilter;
 
-    LogConvertToMORA(
+    LogConvert(
       server: string | null,
       token0: string | null,
       token1: string | null,
       amount0: null,
       amount1: null,
-      amount: null
+      amountTOKEN: null
     ): EventFilter;
-
-    LogConvertToUSDC(
-      server: string | null,
-      token0: string | null,
-      token1: string | null,
-      amount0: null,
-      amount1: null,
-      amount: null
-    ): EventFilter;
-
-    LogMoraBridgeSet(token: string | null, bridge: string | null): EventFilter;
-
-    LogMoraBuybackPercentSet(percent: null): EventFilter;
-
-    LogTreasurySet(treasury: string | null): EventFilter;
-
-    LogUsdcBridgeSet(token: string | null, bridge: string | null): EventFilter;
 
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
     ): EventFilter;
+
+    RemoveAuthorizedAddress(_addr: string | null): EventFilter;
+
+    SetDevAddr(_addr: null): EventFilter;
+
+    SetDevCut(_amount: null): EventFilter;
+
+    SetTokenTo(_tokenTo: null): EventFilter;
   };
 
   estimateGas: {
-    boughtMora(overrides?: CallOverrides): Promise<BigNumber>;
+    addAuth(_auth: string, overrides?: Overrides): Promise<BigNumber>;
 
-    "boughtMora()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "addAuth(address)"(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
 
-    boughtUsdc(overrides?: CallOverrides): Promise<BigNumber>;
+    bar(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "boughtUsdc()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "bar()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    bridgeFor(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    "bridgeFor(address)"(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     convert(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    "convert(address,address)"(
+    "convert(address,address,uint256)"(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
     convertMultiple(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    "convertMultiple(address[],address[])"(
+    "convertMultiple(address[],address[],uint256)"(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    convertMultipleSingleToken(
-      token: string[],
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    devAddr(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "convertMultipleSingleToken(address[])"(
-      token: string[],
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    "devAddr()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    convertSingleToken(
-      token: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    devCut(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "convertSingleToken(address)"(
-      token: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    "devCut()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     factory(overrides?: CallOverrides): Promise<BigNumber>;
 
     "factory()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    moraBridgeFor(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getAuth(index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    "moraBridgeFor(address)"(
-      token: string,
+    "getAuth(uint256)"(
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    moraBuybackPercent(overrides?: CallOverrides): Promise<BigNumber>;
+    lenAuth(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "moraBuybackPercent()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "lenAuth()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    removeAuth(_auth: string, overrides?: Overrides): Promise<BigNumber>;
+
+    "removeAuth(address)"(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
 
     "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
 
-    setMoraBridge(
+    setBridge(
       token: string,
       bridge: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    "setMoraBridge(address,address)"(
+    "setBridge(address,address)"(
       token: string,
       bridge: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    setMoraBuybackPercent(
-      _moraBuybackPercent: BigNumberish,
+    setDevAddr(_addr: string, overrides?: Overrides): Promise<BigNumber>;
+
+    "setDevAddr(address)"(
+      _addr: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    "setMoraBuybackPercent(uint256)"(
-      _moraBuybackPercent: BigNumberish,
+    setDevCut(_amount: BigNumberish, overrides?: Overrides): Promise<BigNumber>;
+
+    "setDevCut(uint256)"(
+      _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    setTreasury(_treasury: string, overrides?: Overrides): Promise<BigNumber>;
-
-    "setTreasury(address)"(
-      _treasury: string,
+    setTokenToAddress(
+      _tokenTo: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    setUsdcBridge(
-      token: string,
-      bridge: string,
+    "setTokenToAddress(address)"(
+      _tokenTo: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    "setUsdcBridge(address,address)"(
-      token: string,
-      bridge: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    tokenTo(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "tokenTo()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: string,
@@ -798,149 +743,150 @@ export class MoraMakerV2 extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
-
-    treasury(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "treasury()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    usdcBridgeFor(token: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    "usdcBridgeFor(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    xmora(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "xmora()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    boughtMora(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    addAuth(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
 
-    "boughtMora()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "addAuth(address)"(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
 
-    boughtUsdc(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    bar(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "boughtUsdc()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "bar()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    bridgeFor(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "bridgeFor(address)"(
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     convert(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "convert(address,address)"(
+    "convert(address,address,uint256)"(
       token0: string,
       token1: string,
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
     convertMultiple(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "convertMultiple(address[],address[])"(
+    "convertMultiple(address[],address[],uint256)"(
       token0: string[],
       token1: string[],
+      slippage: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    convertMultipleSingleToken(
-      token: string[],
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    devAddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "convertMultipleSingleToken(address[])"(
-      token: string[],
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    "devAddr()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    convertSingleToken(
-      token: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    devCut(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "convertSingleToken(address)"(
-      token: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    "devCut()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     factory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "factory()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    moraBridgeFor(
-      token: string,
+    getAuth(
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "moraBridgeFor(address)"(
-      token: string,
+    "getAuth(uint256)"(
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    moraBuybackPercent(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    lenAuth(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "moraBuybackPercent()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    "lenAuth()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    removeAuth(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "removeAuth(address)"(
+      _auth: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
 
     "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
 
-    setMoraBridge(
+    setBridge(
       token: string,
       bridge: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "setMoraBridge(address,address)"(
+    "setBridge(address,address)"(
       token: string,
       bridge: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    setMoraBuybackPercent(
-      _moraBuybackPercent: BigNumberish,
+    setDevAddr(
+      _addr: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "setMoraBuybackPercent(uint256)"(
-      _moraBuybackPercent: BigNumberish,
+    "setDevAddr(address)"(
+      _addr: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    setTreasury(
-      _treasury: string,
+    setDevCut(
+      _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "setTreasury(address)"(
-      _treasury: string,
+    "setDevCut(uint256)"(
+      _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    setUsdcBridge(
-      token: string,
-      bridge: string,
+    setTokenToAddress(
+      _tokenTo: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "setUsdcBridge(address,address)"(
-      token: string,
-      bridge: string,
+    "setTokenToAddress(address)"(
+      _tokenTo: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
+
+    tokenTo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "tokenTo()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
@@ -951,23 +897,5 @@ export class MoraMakerV2 extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
-
-    treasury(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "treasury()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    usdcBridgeFor(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "usdcBridgeFor(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    xmora(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "xmora()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

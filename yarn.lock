@@ -565,10 +565,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@moraswap/v2-core@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@moraswap/v2-core/-/v2-core-1.0.1.tgz#38f592803915fc2fd58c67872df5a0507d7efaec"
-  integrity sha512-NIpCFgodWx2IjNhBwW0RzxAdsBoK5oHECpxDs/k4Rw6qtReADixTcuqF9yB2x4BB15xrpRdDculsFIkGfjodbg==
+"@moraswap/v2-core@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@moraswap/v2-core/-/v2-core-1.0.4.tgz#c862d9ae14bb1e22324533ecf53168253712d3a5"
+  integrity sha512-eNVtzcvz2t9yTNXWEsgP5ffnA8QDXBaBDztFERFQrMKMekT2klj8hzvN2dWgEpXZj/2dpMeqBHomrFarz10kxQ==
   dependencies:
     "@nomiclabs/hardhat-ganache" "^2.0.1"
     sol-merger "^4.1.1"
