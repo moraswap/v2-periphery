@@ -23,8 +23,8 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface SMoraInterface extends ethers.utils.Interface {
   functions: {
     "DELEGATION_TYPEHASH()": FunctionFragment;
-    "DEPOSIT_FEE_PERCENT_PRECISION()": FunctionFragment;
     "DOMAIN_TYPEHASH()": FunctionFragment;
+    "FEE_PERCENT_PRECISION()": FunctionFragment;
     "accRewardPerShare(address)": FunctionFragment;
     "accRewardPerSharePrecision(address)": FunctionFragment;
     "addRewardToken(address,uint256)": FunctionFragment;
@@ -49,6 +49,7 @@ interface SMoraInterface extends ethers.utils.Interface {
     "isRewardToken(address)": FunctionFragment;
     "lastRewardBalance(address)": FunctionFragment;
     "mora()": FunctionFragment;
+    "moraForSMora(uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "nonces(address)": FunctionFragment;
     "numCheckpoints(address)": FunctionFragment;
@@ -59,6 +60,7 @@ interface SMoraInterface extends ethers.utils.Interface {
     "rewardTokens(uint256)": FunctionFragment;
     "rewardTokensLength()": FunctionFragment;
     "setDepositFeePercent(uint256)": FunctionFragment;
+    "smoraForMora(uint256)": FunctionFragment;
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
@@ -66,6 +68,7 @@ interface SMoraInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
     "updateReward(address)": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
+    "withdrawFeePercent()": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -73,11 +76,11 @@ interface SMoraInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "DEPOSIT_FEE_PERCENT_PRECISION",
+    functionFragment: "DOMAIN_TYPEHASH",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "DOMAIN_TYPEHASH",
+    functionFragment: "FEE_PERCENT_PRECISION",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -168,6 +171,10 @@ interface SMoraInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(functionFragment: "mora", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "moraForSMora",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "nonces", values: [string]): string;
   encodeFunctionData(
@@ -199,6 +206,10 @@ interface SMoraInterface extends ethers.utils.Interface {
     functionFragment: "setDepositFeePercent",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "smoraForMora",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -224,17 +235,21 @@ interface SMoraInterface extends ethers.utils.Interface {
     functionFragment: "withdraw",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawFeePercent",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "DELEGATION_TYPEHASH",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "DEPOSIT_FEE_PERCENT_PRECISION",
+    functionFragment: "DOMAIN_TYPEHASH",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "DOMAIN_TYPEHASH",
+    functionFragment: "FEE_PERCENT_PRECISION",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -309,6 +324,10 @@ interface SMoraInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mora", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "moraForSMora",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
   decodeFunctionResult(
@@ -340,6 +359,10 @@ interface SMoraInterface extends ethers.utils.Interface {
     functionFragment: "setDepositFeePercent",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "smoraForMora",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -359,6 +382,10 @@ interface SMoraInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawFeePercent",
+    data: BytesLike
+  ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
@@ -373,6 +400,7 @@ interface SMoraInterface extends ethers.utils.Interface {
     "RewardTokenRemoved(address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
     "Withdraw(address,uint256)": EventFragment;
+    "WithdrawFeeChanged(uint256,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -387,6 +415,7 @@ interface SMoraInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RewardTokenRemoved"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawFeeChanged"): EventFragment;
 }
 
 export class SMora extends Contract {
@@ -407,17 +436,13 @@ export class SMora extends Contract {
 
     "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<[string]>;
 
-    DEPOSIT_FEE_PERCENT_PRECISION(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    "DEPOSIT_FEE_PERCENT_PRECISION()"(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<[string]>;
 
     "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<[string]>;
+
+    FEE_PERCENT_PRECISION(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "FEE_PERCENT_PRECISION()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     accRewardPerShare(
       arg0: string,
@@ -640,6 +665,16 @@ export class SMora extends Contract {
 
     "mora()"(overrides?: CallOverrides): Promise<[string]>;
 
+    moraForSMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    "moraForSMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     "name()"(overrides?: CallOverrides): Promise<[string]>;
@@ -712,6 +747,16 @@ export class SMora extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
+    smoraForMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    "smoraForMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
     "symbol()"(overrides?: CallOverrides): Promise<[string]>;
@@ -775,21 +820,23 @@ export class SMora extends Contract {
       _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    withdrawFeePercent(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "withdrawFeePercent()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   DELEGATION_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
   "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
 
-  DEPOSIT_FEE_PERCENT_PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "DEPOSIT_FEE_PERCENT_PRECISION()"(
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
   "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
+
+  FEE_PERCENT_PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "FEE_PERCENT_PRECISION()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   accRewardPerShare(
     arg0: string,
@@ -1012,6 +1059,16 @@ export class SMora extends Contract {
 
   "mora()"(overrides?: CallOverrides): Promise<string>;
 
+  moraForSMora(
+    _amount: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "moraForSMora(uint256)"(
+    _amount: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   name(overrides?: CallOverrides): Promise<string>;
 
   "name()"(overrides?: CallOverrides): Promise<string>;
@@ -1081,6 +1138,16 @@ export class SMora extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  smoraForMora(
+    _amount: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "smoraForMora(uint256)"(
+    _amount: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   symbol(overrides?: CallOverrides): Promise<string>;
 
   "symbol()"(overrides?: CallOverrides): Promise<string>;
@@ -1145,22 +1212,22 @@ export class SMora extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  withdrawFeePercent(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "withdrawFeePercent()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   callStatic: {
     DELEGATION_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
     "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
 
-    DEPOSIT_FEE_PERCENT_PRECISION(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "DEPOSIT_FEE_PERCENT_PRECISION()"(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
     "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
+
+    FEE_PERCENT_PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "FEE_PERCENT_PRECISION()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     accRewardPerShare(
       arg0: string,
@@ -1377,6 +1444,16 @@ export class SMora extends Contract {
 
     "mora()"(overrides?: CallOverrides): Promise<string>;
 
+    moraForSMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "moraForSMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<string>;
 
     "name()"(overrides?: CallOverrides): Promise<string>;
@@ -1449,6 +1526,16 @@ export class SMora extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    smoraForMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "smoraForMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     symbol(overrides?: CallOverrides): Promise<string>;
 
     "symbol()"(overrides?: CallOverrides): Promise<string>;
@@ -1506,6 +1593,10 @@ export class SMora extends Contract {
       _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    withdrawFeePercent(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "withdrawFeePercent()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -1554,6 +1645,8 @@ export class SMora extends Contract {
     Transfer(from: string | null, to: string | null, value: null): EventFilter;
 
     Withdraw(user: string | null, amount: null): EventFilter;
+
+    WithdrawFeeChanged(newFee: null, oldFee: null): EventFilter;
   };
 
   estimateGas: {
@@ -1561,17 +1654,13 @@ export class SMora extends Contract {
 
     "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    DEPOSIT_FEE_PERCENT_PRECISION(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "DEPOSIT_FEE_PERCENT_PRECISION()"(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>;
 
     "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    FEE_PERCENT_PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "FEE_PERCENT_PRECISION()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     accRewardPerShare(
       arg0: string,
@@ -1788,6 +1877,16 @@ export class SMora extends Contract {
 
     "mora()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    moraForSMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "moraForSMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     "name()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1860,6 +1959,16 @@ export class SMora extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
+    smoraForMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "smoraForMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
     "symbol()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1917,6 +2026,10 @@ export class SMora extends Contract {
       _amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
+
+    withdrawFeePercent(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "withdrawFeePercent()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1928,17 +2041,17 @@ export class SMora extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    DEPOSIT_FEE_PERCENT_PRECISION(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "DEPOSIT_FEE_PERCENT_PRECISION()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "DOMAIN_TYPEHASH()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    FEE_PERCENT_PRECISION(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "FEE_PERCENT_PRECISION()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2178,6 +2291,16 @@ export class SMora extends Contract {
 
     "mora()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    moraForSMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "moraForSMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "name()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2260,6 +2383,16 @@ export class SMora extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
+    smoraForMora(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "smoraForMora(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "symbol()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2322,6 +2455,14 @@ export class SMora extends Contract {
     "withdraw(uint256)"(
       _amount: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    withdrawFeePercent(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawFeePercent()"(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

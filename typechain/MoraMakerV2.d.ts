@@ -24,6 +24,7 @@ interface MoraMakerV2Interface extends ethers.utils.Interface {
   functions: {
     "addAuth(address)": FunctionFragment;
     "bar()": FunctionFragment;
+    "boughtTokenTo()": FunctionFragment;
     "bridgeFor(address)": FunctionFragment;
     "convert(address,address,uint256)": FunctionFragment;
     "convertMultiple(address[],address[],uint256)": FunctionFragment;
@@ -45,6 +46,10 @@ interface MoraMakerV2Interface extends ethers.utils.Interface {
 
   encodeFunctionData(functionFragment: "addAuth", values: [string]): string;
   encodeFunctionData(functionFragment: "bar", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "boughtTokenTo",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "bridgeFor", values: [string]): string;
   encodeFunctionData(
     functionFragment: "convert",
@@ -89,6 +94,10 @@ interface MoraMakerV2Interface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "addAuth", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "bar", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "boughtTokenTo",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "bridgeFor", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "convert", data: BytesLike): Result;
   decodeFunctionResult(
@@ -164,6 +173,10 @@ export class MoraMakerV2 extends Contract {
     bar(overrides?: CallOverrides): Promise<[string]>;
 
     "bar()"(overrides?: CallOverrides): Promise<[string]>;
+
+    boughtTokenTo(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "boughtTokenTo()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     bridgeFor(
       token: string,
@@ -312,6 +325,10 @@ export class MoraMakerV2 extends Contract {
 
   "bar()"(overrides?: CallOverrides): Promise<string>;
 
+  boughtTokenTo(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "boughtTokenTo()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   bridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
 
   "bridgeFor(address)"(
@@ -452,6 +469,10 @@ export class MoraMakerV2 extends Contract {
     bar(overrides?: CallOverrides): Promise<string>;
 
     "bar()"(overrides?: CallOverrides): Promise<string>;
+
+    boughtTokenTo(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "boughtTokenTo()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     bridgeFor(token: string, overrides?: CallOverrides): Promise<string>;
 
@@ -621,6 +642,10 @@ export class MoraMakerV2 extends Contract {
 
     "bar()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    boughtTokenTo(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "boughtTokenTo()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     bridgeFor(token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "bridgeFor(address)"(
@@ -759,6 +784,10 @@ export class MoraMakerV2 extends Contract {
     bar(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "bar()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    boughtTokenTo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "boughtTokenTo()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     bridgeFor(
       token: string,

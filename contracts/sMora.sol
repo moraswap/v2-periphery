@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 
-contract sMora is Ownable, ERC20("sMora", "sMora") {
+contract sMora is Ownable, ERC20("sMora", "sMORA") {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -27,10 +27,12 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
 
     address public feeCollector;
 
-    /// @notice The deposit fee, scaled to `DEPOSIT_FEE_PERCENT_PRECISION`
+    /// @notice The deposit fee, scaled to `FEE_PERCENT_PRECISION`
     uint256 public depositFeePercent;
-    /// @notice The precision of `depositFeePercent`
-    uint256 public DEPOSIT_FEE_PERCENT_PRECISION;
+    /// @notice The deposit fee, scaled to `FEE_PERCENT_PRECISION`
+    uint256 public withdrawFeePercent;
+    /// @notice The precision of `depositFeePercent` & `withdrawFeePercent`
+    uint256 public FEE_PERCENT_PRECISION;
 
     /// @notice Accumulated `token` rewards per share, scaled to `accRewardPerSharePrecision`
     mapping(IERC20 => uint256) public accRewardPerShare;
@@ -48,6 +50,9 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
 
     /// @notice Emitted when a user withdraws MORA
     event Withdraw(address indexed user, uint256 amount);
+
+    /// @notice Emitted when owner changes the withdraw fee percentage
+    event WithdrawFeeChanged(uint256 newFee, uint256 oldFee);
 
     /// @notice Emitted when a user claims reward
     event ClaimReward(
@@ -70,28 +75,31 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
         IERC20 _mora,
         address _feeCollector,
         uint256 _depositFeePercent,
+        uint256 _withdrawFeePercent,
         uint256 _accRewardPerSharePrecision
     ) public {
         require(address(_rewardToken) != address(0), "sMora: ZERO_ADDRESS_0");
         require(address(_mora) != address(0), "sMora: ZERO_ADDRESS_1");
         require(_feeCollector != address(0), "sMora: ZERO_ADDRESS_2");
         require(_depositFeePercent <= 5e17, "sMora: EXCEEDED_50_PERCENT");
+        require(_withdrawFeePercent <= 5e17, "sMora: EXCEEDED_50_PERCENT");
 
         mora = _mora;
         depositFeePercent = _depositFeePercent;
+        withdrawFeePercent = _withdrawFeePercent;
         feeCollector = _feeCollector;
 
         isRewardToken[_rewardToken] = true;
         accRewardPerSharePrecision[_rewardToken] = _accRewardPerSharePrecision;
         rewardTokens.push(_rewardToken);
-        DEPOSIT_FEE_PERCENT_PRECISION = 1e18;
+        FEE_PERCENT_PRECISION = 1e18;
     }
 
     function deposit(uint256 _amount) external {
         UserInfo storage user = userInfo[msg.sender];
 
         uint256 _fee = _amount.mul(depositFeePercent).div(
-            DEPOSIT_FEE_PERCENT_PRECISION
+            FEE_PERCENT_PRECISION
         );
         uint256 _amountMinusFee = _amount.sub(_fee);
         _mint(msg.sender, _amountMinusFee);
@@ -123,8 +131,8 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
         }
 
         internalMoraBalance = internalMoraBalance.add(_amountMinusFee);
-        mora.safeTransferFrom(msg.sender, feeCollector, _fee);
-        mora.safeTransferFrom(msg.sender, address(this), _amountMinusFee);
+        if (_fee > 0) mora.safeTransferFrom(msg.sender, feeCollector, _fee);
+        if (_amountMinusFee > 0) mora.safeTransferFrom(msg.sender, address(this), _amountMinusFee);
         emit Deposit(msg.sender, _amountMinusFee, _fee);
     }
 
@@ -246,7 +254,12 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
         }
 
         internalMoraBalance = internalMoraBalance.sub(_amount);
-        mora.safeTransfer(msg.sender, _amount);
+        uint256 _fee = _amount.mul(withdrawFeePercent).div(
+            FEE_PERCENT_PRECISION
+        );
+        uint256 _amountMinusFee = _amount.sub(_fee);
+        if (_fee > 0) mora.safeTransfer(feeCollector, _fee);
+        if (_amountMinusFee > 0) mora.safeTransfer(msg.sender, _amountMinusFee);
         emit Withdraw(msg.sender, _amount);
     }
 
@@ -261,7 +274,7 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
             user.rewardDebt[_token] = 0;
         }
         internalMoraBalance = internalMoraBalance.sub(_amount);
-        mora.safeTransfer(msg.sender, _amount);
+        if (_amount > 0) mora.safeTransfer(msg.sender, _amount);
         emit EmergencyWithdraw(msg.sender, _amount);
     }
 
@@ -304,11 +317,25 @@ contract sMora is Ownable, ERC20("sMora", "sMora") {
             lastRewardBalance[_token] = lastRewardBalance[_token].sub(
                 _rewardBalance
             );
-            _token.safeTransfer(_to, _rewardBalance);
+            if (_rewardBalance > 0) _token.safeTransfer(_to, _rewardBalance);
         } else {
             lastRewardBalance[_token] = lastRewardBalance[_token].sub(_amount);
-            _token.safeTransfer(_to, _amount);
+            if (_amount > 0) _token.safeTransfer(_to, _amount);
         }
+    }
+
+    function moraForSMora(uint256 _amount) external view returns (uint256) {
+        uint256 _fee = _amount.mul(depositFeePercent).div(
+            FEE_PERCENT_PRECISION
+        );
+        return _amount.sub(_fee);
+    }
+
+    function smoraForMora(uint256 _amount) external view returns (uint256) {
+        uint256 _fee = _amount.mul(withdrawFeePercent).div(
+            FEE_PERCENT_PRECISION
+        );
+        return _amount.sub(_fee);
     }
 
     // Copied and modified from YAM code:

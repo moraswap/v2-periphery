@@ -20,6 +20,7 @@ contract MoraMakerV2 is Ownable {
     address public immutable bar; // sMora
     address private immutable weth9; // WNEON
     address public tokenTo; // WSOL
+    uint256 public boughtTokenTo;
     uint256 public devCut = 0; // 10_000 = 100%
     address public devAddr;
 
@@ -177,13 +178,16 @@ contract MoraMakerV2 is Ownable {
             amount0 = IERC20(token0).balanceOf(address(this)).sub(tok0bal);
             amount1 = IERC20(token1).balanceOf(address(this)).sub(tok1bal);
         }
+
+        uint256 tokenOut = _convertStep(token0, token1, amount0, amount1, slippage);
+        boughtTokenTo += tokenOut;
         emit LogConvert(
             msg.sender,
             token0,
             token1,
             amount0,
             amount1,
-            _convertStep(token0, token1, amount0, amount1, slippage)
+            tokenOut
         );
     }
 
